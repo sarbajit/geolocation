@@ -3,6 +3,7 @@ import countries from '../lib/countries.json'
 
 export async function middleware(req: NextRequest) {
   const { nextUrl: url, geo } = req
+  
   const country = geo.country || 'US'
   const city = geo.city || 'San Francisco'
   const region = geo.region || 'CA'
@@ -20,6 +21,7 @@ export async function middleware(req: NextRequest) {
   url.searchParams.set('currencySymbol', currency.symbol)
   url.searchParams.set('name', currency.name)
   url.searchParams.set('languages', languages)
-
-  return NextResponse.rewrite(url)
+  
+  return new NextResponse(req.geo.country)
+  //return NextResponse.rewrite(url)
 }
